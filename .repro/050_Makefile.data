@@ -1,7 +1,13 @@
 ## 
-## # Targets for managing the data in this REPRO.
-## 
+## # Targets for managing the REPRO-local Blazegraph instance.
 
-get-data:                ## Run all of the examples.
+BLAZEGRAPH_DIR=./.blazegraph
 
-clean-data:              ## Delete all downloaded and generated data.
+clean-blazegraph:       ## Delete the Blazegraph logs.
+	rm -f ${BLAZEGRAPH_DIR}/*.log
+	
+drop-blazegraph:        ## Delete the Blazegraph storage file.
+	rm -f ${BLAZEGRAPH_DIR}/blazegraph.diskrw
+
+## purge-blazegraph:       Delete all artifacts associated with Blazegraph instance.
+purge-blazegraph: drop-blazegraph clean-blazegraph
