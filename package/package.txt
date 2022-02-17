@@ -1,4 +1,3 @@
-
+blazegraph.properties
 start_blazegraph.sh
-
 blazegraph.jar https://github.com/blazegraph/database/releases/download/BLAZEGRAPH_RELEASE_2_1_5/blazegraph.jar
