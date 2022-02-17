@@ -39,16 +39,16 @@ ENV REPRO_SCRIPTS_DIR ${HOME}/scripts
 COPY --chown=repro:repro .repro/scripts ${REPRO_SCRIPTS_DIR}
 RUN chmod a+rx ${REPRO_SCRIPTS_DIR}/*.sh
 
+# copy local package into the REPRO
+ENV PACKAGE_DIR ${HOME}/package
+COPY --chown=repro:repro package ${PACKAGE_DIR}
+
 # install dependency bundles
 ENV BUNDLES_DIR ${HOME}/bundles
 ENV BUNDLES_URL_TEMPLATE 'https://github.com/cirss/${name}/releases/download/v${version}/${name}-${version}-linux-x86-64-static'
 RUN scripts/install-bundle.sh blaze 0.2.6
 
-ENV BUNDLES_URL_TEMPLATE 'https://github.com/${name}/database/releases/download/BLAZEGRAPH_${version}/${name}.jar'
-ENV BLAZEGRAPH_VERSION RELEASE_2_1_5
-RUN scripts/install-bundle-jar.sh blazegraph ${BLAZEGRAPH_VERSION}
-
-RUN cp ${REPRO_SCRIPTS_DIR}/start_blazegraph.sh ${HOME}/bundles/blazegraph-RELEASE_2_1_5/
+RUN scripts/install-local-package.sh
 
 RUN echo "export PATH=${REPRO_MNT}/binaries:`cat ~/.bundle_path`$PATH" >> ${BASHRC}
 RUN echo "export IN_RUNNING_REPRO=${REPRO_NAME}" >> ${BASHRC}
