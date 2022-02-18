@@ -33,8 +33,6 @@ RUN chmod a+rx ${REPRO_SCRIPTS_DIR}/*.sh
 ENV PACKAGE_DIR ${HOME}/package
 COPY --chown=repro:repro package ${PACKAGE_DIR}
 
-RUN sudo apt -y install openjdk-8-jdk
-
 # install dependency bundles
 ENV MODULES_DIR ${HOME}/bundles/
 ENV MODULES_URL_TEMPLATE 'https://github.com/cirss/${module_name}/releases/download/v${module_version}/'

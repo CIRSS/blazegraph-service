@@ -55,6 +55,11 @@ do
         chmod u+x ${artifact_name}
     fi
 
+    if [[ ${artifact_name} == configure.sh ]] ; then
+        echo "Running  ${artifact_name}"
+        source ${artifact_name}
+    fi
+
 done
 
 echo -n "${module_dir}:" >> ~/.bundle_path
