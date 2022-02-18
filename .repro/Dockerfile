@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 ENV REPRO_NAME  blazegraph-service
 ENV REPRO_MNT   /mnt/${REPRO_NAME}
@@ -6,27 +6,17 @@ ENV REPRO_USER  repro
 ENV REPRO_UID   1000
 ENV REPRO_GID   1000
 
-RUN echo '***** Update packages *****'                                      \
-    && apt-get -y update
-
-RUN echo '***** Set timezone noninteractively install JDK8 *****'
-RUN DEBIAN_FRONTEND="noninteractive" TZ="America/Los_Angeles"               \
-    apt -y install tzdata openjdk-8-jdk
-
-RUN echo '***** Install packages required for creating this image *****'    \
-    && apt -y install apt-utils wget curl makepasswd gcc make git           \
-                                                                            \
-    && echo '***** Install command-line utility packages *****'             \
-    && apt -y install sudo man less file tree jq graphviz libxml2-utils
-
-RUN echo '***** Add the REPRO user and group *****'                         \
-    && groupadd ${REPRO_USER} --gid ${REPRO_GID}                            \
-    && useradd ${REPRO_USER} --uid ${REPRO_UID} --gid ${REPRO_GID}          \
-        --shell /bin/bash                                                   \
-        --create-home                                                       \
-        -p `echo repro | makepasswd --crypt-md5 --clearfrom - | cut -b8-`   \
-    && echo "${REPRO_USER} ALL=(ALL) NOPASSWD: ALL"                         \
-            > /etc/sudoers.d/${REPRO_USER}                                  \
+RUN apt-get -y update &&                                                        \
+    apt -y install apt-utils wget makepasswd make git sudo man less file tree
+    
+RUN echo '***** Add the REPRO user and group *****'                             \
+    && groupadd ${REPRO_USER} --gid ${REPRO_GID}                                \
+    && useradd ${REPRO_USER} --uid ${REPRO_UID} --gid ${REPRO_GID}              \
+        --shell /bin/bash                                                       \
+        --create-home                                                           \
+        -p `echo repro | makepasswd --crypt-md5 --clearfrom - | cut -b8-`       \
+    && echo "${REPRO_USER} ALL=(ALL) NOPASSWD: ALL"                             \
+            > /etc/sudoers.d/${REPRO_USER}                                      \
     && chmod 0440 /etc/sudoers.d/repro
 
 ENV HOME /home/${REPRO_USER}
@@ -43,12 +33,13 @@ RUN chmod a+rx ${REPRO_SCRIPTS_DIR}/*.sh
 ENV PACKAGE_DIR ${HOME}/package
 COPY --chown=repro:repro package ${PACKAGE_DIR}
 
-# install dependency bundles
-ENV BUNDLES_DIR ${HOME}/bundles
-ENV BUNDLES_URL_TEMPLATE 'https://github.com/cirss/${name}/releases/download/v${version}/${name}-${version}-linux-x86-64-static'
-RUN scripts/install-bundle.sh blaze 0.2.6
+RUN sudo apt -y install openjdk-8-jdk
 
-RUN scripts/install-local-package.sh
+# install dependency bundles
+ENV MODULES_DIR ${HOME}/bundles/
+ENV MODULES_URL_TEMPLATE 'https://github.com/cirss/${module_name}/releases/download/v${module_version}/'
+RUN scripts/install-module.sh blaze 0.2.6
+RUN scripts/install-module.sh blazegraph-service local
 
 RUN echo "export PATH=${REPRO_MNT}/binaries:`cat ~/.bundle_path`$PATH" >> ${BASHRC}
 RUN echo "export IN_RUNNING_REPRO=${REPRO_NAME}" >> ${BASHRC}
