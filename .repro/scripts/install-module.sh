@@ -8,7 +8,7 @@ mkdir -p ${module_dir}
 cd ${module_dir}
 
 if [[ $package_version == local ]] ; then
-    cp ${LOCAL_PACKAGE}/module.txt .
+    cp ${PACKAGE_SNAPSHOT}/module.txt .
 else
     package_url=`eval echo ${PACKAGE_URL_TEMPLATE}`
     wget --quiet ${package_url}/module.txt
@@ -43,7 +43,7 @@ do
     if [[ ${artifact_path} == http?:* ]] ; then
         wget -nv -O ${artifact_name} ${artifact_path}
     elif [[ $package_version == local ]] ; then
-        cp ${LOCAL_PACKAGE}/${artifact_path} ${artifact_name}
+        cp ${PACKAGE_SNAPSHOT}/${artifact_path} ${artifact_name}
     else
         wget -nv -O ${artifact_name} ${package_url}/${artifact_path}
     fi
