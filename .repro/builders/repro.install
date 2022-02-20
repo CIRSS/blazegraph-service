@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ${HOME}/.env
+
 module_name=$1
 package_version=$2
 module_dir=${MODULES_DIR}/${module_name}-${package_version}

@@ -1,0 +1,28 @@
+
+# repro user name is 'repro' unless overridden
+export REPRO_USER=${REPRO_USER:-repro}
+
+# repro user uid and gid are both 1000 unless overridden
+repro_uid=${REPRO_UID:-1000}
+repro_gid=${REPRO_GID:-1000}
+
+# create the REPRO user, group, and home directory
+groupadd ${REPRO_USER} --gid ${repro_gid}
+useradd ${REPRO_USER} --uid ${repro_uid} --gid ${repro_gid}                     \
+        --shell /bin/bash                                                       \
+        --create-home                                                           \
+        -p `echo repro | makepasswd --crypt-md5 --clearfrom - | cut -b8-`       \
+
+# grant the REPRO user sudo privileges
+sudoer_file=/etc/sudoers.d/${REPRO_USER}
+echo "${REPRO_USER} ALL=(ALL) NOPASSWD: ALL" > ${sudoer_file}
+chmod 0440 ${sudoer_file}
+
+export REPRO_HOME=/home/${REPRO_USER}
+export REPRO_ENV=${REPRO_HOME}/.env
+export REPRO_BASHRC=${REPRO_HOME}/.bashrc
+
+echo "source ${REPRO_ENV}" >> ${REPRO_BASHRC}
+
+
+
