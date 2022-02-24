@@ -2,8 +2,8 @@ FROM ubuntu:22.04
 
 ENV REPRO_NAME  blazegraph-service
 
-ADD .repro-builder/ /.repro-builder
-RUN bash /.repro-builder/bootstrap
+COPY .repro-builder .repro-builder
+RUN bash .repro-builder/bootstrap
 
 USER repro
 

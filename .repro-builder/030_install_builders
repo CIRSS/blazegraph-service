@@ -1,8 +1,0 @@
-
-export MODULES_DIR=/home/repro/installed-modules
-export PACKAGE_SNAPSHOT=${REPRO_BUILDER_DIR}/package
-
-envsubst < templates/repro.atstart > /usr/local/bin/repro.atstart
-envsubst '$MODULES_DIR $PACKAGE_SNAPSHOT' < templates/repro.install > /usr/local/bin/repro.install
-
-chmod a+rx /usr/local/bin/*

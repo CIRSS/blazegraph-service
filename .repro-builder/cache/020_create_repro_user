@@ -1,30 +1,21 @@
 
 # repro user name is 'repro' unless overridden
-export REPRO_USER=${REPRO_USER:-repro}
-export HOME=/home/${REPRO_USER}
-export DOT_ENV=${HOME}/.env
-
-function repro.setenv {
-    name=$1
-    value=$2
-    export ${name}=${value}
-    echo "export ${name}=${value}" >> ${DOT_ENV}
-}
+repro_user=${REPRO_USER:-repro}
 
 # repro user uid and gid are both 1000 unless overridden
 repro_uid=${REPRO_UID:-1000}
 repro_gid=${REPRO_GID:-1000}
 
 # create the REPRO user, group, and home directory
-groupadd ${REPRO_USER} --gid ${repro_gid}
-useradd ${REPRO_USER} --uid ${repro_uid} --gid ${repro_gid}                     \
+groupadd ${repro_user} --gid ${repro_gid}
+useradd ${repro_user} --uid ${repro_uid} --gid ${repro_gid}                     \
         --shell /bin/bash                                                       \
         --create-home                                                           \
         -p `echo repro | makepasswd --crypt-md5 --clearfrom - | cut -b8-`       \
 
 # grant the REPRO user sudo privileges
-sudoer_file=/etc/sudoers.d/${REPRO_USER}
-echo "${REPRO_USER} ALL=(ALL) NOPASSWD: ALL" > ${sudoer_file}
+sudoer_file=/etc/sudoers.d/${repro_user}
+echo "${repro_user} ALL=(ALL) NOPASSWD: ALL" > ${sudoer_file}
 chmod 0440 ${sudoer_file}
 
 

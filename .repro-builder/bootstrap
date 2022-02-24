@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# work in REPRO builder directory
-REPRO_BUILDER_DIR=`dirname $0`
-cd ${REPRO_BUILDER_DIR}
+# work in repro-builder cache directory
+REPRO_BUILDER_DIR=`readlink -f $(dirname $0)`
+cd ${REPRO_BUILDER_DIR}/cache
 
 # install wget so that missing builder scripts can be downloaded
 apt-get -y update
@@ -14,7 +14,8 @@ apt-get -y install wget
 
 source 010_install_required_packages
 source 020_create_repro_user
-source 030_install_builders
-source 040_install_optional_packages
-source 050_initialize_environment
+source 030_initialize_environment
+source 040_install_builders
+source 050_install_optional_packages
+source 060_configure_startup
 

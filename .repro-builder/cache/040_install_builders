@@ -1,0 +1,11 @@
+
+repro.setenv MODULES_DIR        ${HOME}/installed-modules
+repro.setenv PACKAGE_SNAPSHOT   ${REPRO_BUILDER_DIR}/package
+repro.setenv REPRO_PATH         ${HOME}/.repropath
+
+vars_to_substitute='$MODULES_DIR $PACKAGE_SNAPSHOT $REPRO_PATH'
+
+envsubst "${vars_to_substitute}" < repro.atstart > /usr/local/bin/repro.atstart
+envsubst "${vars_to_substitute}" < repro.install > /usr/local/bin/repro.install
+
+chmod a+rx /usr/local/bin/*

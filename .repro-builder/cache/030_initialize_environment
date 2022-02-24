@@ -1,0 +1,14 @@
+
+export HOME=/home/${repro_user}
+export REPRO_ENV=${HOME}/.reproenv
+
+function repro.setenv {
+    name=$1
+    value=$2
+    export ${name}=${value}
+    echo "export ${name}=${value}" >> ${REPRO_ENV}
+}
+
+repro.setenv HOME               ${HOME}
+repro.setenv REPRO_MNT          /mnt/${REPRO_NAME}
+repro.setenv IN_RUNNING_REPRO   ${REPRO_NAME}
