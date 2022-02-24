@@ -1,6 +1,15 @@
 
 # repro user name is 'repro' unless overridden
 export REPRO_USER=${REPRO_USER:-repro}
+export HOME=/home/${REPRO_USER}
+export DOT_ENV=${HOME}/.env
+
+function repro.setenv {
+    name=$1
+    value=$2
+    export ${name}=${value}
+    echo "export ${name}=${value}" >> ${DOT_ENV}
+}
 
 # repro user uid and gid are both 1000 unless overridden
 repro_uid=${REPRO_UID:-1000}
@@ -18,8 +27,6 @@ sudoer_file=/etc/sudoers.d/${REPRO_USER}
 echo "${REPRO_USER} ALL=(ALL) NOPASSWD: ALL" > ${sudoer_file}
 chmod 0440 ${sudoer_file}
 
-export HOME=/home/${REPRO_USER}
-export DOT_ENV=${HOME}/.env
 
 
 

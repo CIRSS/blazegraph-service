@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# work in builders subdirectory
-cd `dirname $0`/builders
+# work in REPRO builder directory
+REPRO_BUILDER_DIR=`dirname $0`
+cd ${REPRO_BUILDER_DIR}
 
 # install wget so that missing builder scripts can be downloaded
 apt-get -y update
@@ -10,13 +11,6 @@ apt-get -y install wget
 # if [[ ! -f initialize-repro ]] ; then
 #     echo "MISSING"
 # fi
-
-function repro.setenv {
-    name=$1
-    value=$2
-    export ${name}=${value}
-    echo "export ${name}=${value}" >> ${DOT_ENV}
-}
 
 source 010_install_required_packages
 source 020_create_repro_user
