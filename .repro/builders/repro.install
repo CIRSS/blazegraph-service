@@ -4,6 +4,8 @@ source ${HOME}/.env
 
 module_name=$1
 package_version=$2
+package_url_template=$3
+
 module_dir=${MODULES_DIR}/${module_name}-${package_version}
 
 mkdir -p ${module_dir}
@@ -12,7 +14,7 @@ cd ${module_dir}
 if [[ $package_version == local ]] ; then
     cp ${PACKAGE_SNAPSHOT}/module.txt .
 else
-    package_url=`eval echo ${PACKAGE_URL_TEMPLATE}`
+    package_url=`eval echo ${package_url_template}`
     wget --quiet ${package_url}/module.txt
 fi
 

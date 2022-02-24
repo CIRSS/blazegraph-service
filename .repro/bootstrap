@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# work in directory containing this script
-cd `dirname $0`
+# work in builders subdirectory
+cd `dirname $0`/builders
 
 # install wget so that missing builder scripts can be downloaded
 apt-get -y update
@@ -11,19 +11,16 @@ apt-get -y install wget
 #     echo "MISSING"
 # fi
 
-
 function repro.setenv {
     name=$1
     value=$2
     export ${name}=${value}
-    echo "export ${name}=${value}" >> ${REPRO_ENV}
+    echo "export ${name}=${value}" >> ${DOT_ENV}
 }
 
 source 010_install_required_packages
 source 020_create_repro_user
-source 030_install_optional_packages
-source 040_initialize_environment
-
-chmod a+rx repro.*
-cp repro.* /usr/local/bin
+source 030_install_builders
+source 040_install_optional_packages
+source 050_initialize_environment
 

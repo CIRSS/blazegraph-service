@@ -18,11 +18,9 @@ sudoer_file=/etc/sudoers.d/${REPRO_USER}
 echo "${REPRO_USER} ALL=(ALL) NOPASSWD: ALL" > ${sudoer_file}
 chmod 0440 ${sudoer_file}
 
-export REPRO_HOME=/home/${REPRO_USER}
-export REPRO_ENV=${REPRO_HOME}/.env
-export REPRO_BASHRC=${REPRO_HOME}/.bashrc
+export HOME=/home/${REPRO_USER}
+export DOT_ENV=${HOME}/.env
 
-echo "source ${REPRO_ENV}" >> ${REPRO_BASHRC}
 
 
 
