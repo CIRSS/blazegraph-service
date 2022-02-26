@@ -1,3 +1,0 @@
-repro.atstart source ${REPRO_ENV}
-repro.atstart 'export PATH=$(<${REPRO_PATH}):$PATH'
-repro.atstart cd ${REPRO_MNT}

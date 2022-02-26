@@ -10,7 +10,7 @@ build-image:            ## Build the Docker image used to run this REPRO.
 	docker build -t ${REPRO_IMAGE} .
 
 rebuild-image:          ## Force rebuild of the Docker image used to run this REPRO.
-	docker build --no-cache -f -t ${REPRO_IMAGE} .
+	docker build --no-cache -t ${REPRO_IMAGE} .
 
 pull-image:             ## Pull the Docker image from Docker Hub.
 	docker pull ${REPRO_IMAGE}

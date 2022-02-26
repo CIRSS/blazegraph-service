@@ -2,14 +2,14 @@
 
 # work in repro-builder cache directory
 REPRO_BUILDER_DIR=`readlink -f $(dirname $0)`
+mkdir -p ${REPRO_BUILDER_DIR}/cache
 cd ${REPRO_BUILDER_DIR}/cache
-
 
 # install wget so that missing builder scripts can be downloaded
 apt-get -y update
 apt-get -y install wget
 
-repro_template_release=https://github.com/CIRSS/repro-template/releases/download/v0.1.0/
+repro_template_release=https://github.com/CIRSS/repro-builder/releases/download/v0.1.0/
 wget --quiet ${repro_template_release}/module.txt
 
 readarray lines < module.txt
@@ -18,12 +18,10 @@ do
     trimmed_line=${full_line%%#*}
     read -ra tokens <<< ${trimmed_line}
     artifact_name=${tokens[0]}
-    wget -nv -O ${artifact_name} ${repro_template_release}/${artifact_name}
+    if [[ ! -f ${artifact_name} ]] ; then
+        wget -nv -O ${artifact_name} ${repro_template_release}/${artifact_name}
+    fi
 done
-
-# if [[ ! -f initialize-repro ]] ; then
-#     echo "MISSING"
-# fi
 
 for filename in [0-9]*; do
     echo -e "\nSTARTING  ${filename}\n"

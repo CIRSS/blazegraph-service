@@ -1,4 +1,0 @@
-
-# install packages needed to build any REPRO
-apt-get -y install apt-utils gettext makepasswd sudo file
-
