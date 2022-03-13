@@ -1,4 +1,4 @@
-FROM docker.io/cirss/repro-template
+FROM docker.io/cirss/repros-template
 
 COPY .repro .repro
 
