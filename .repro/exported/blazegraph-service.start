@@ -1,25 +1,13 @@
 #!/bin/bash
 
-# get the directory containing this script
-PACKAGE=`dirname $0`
-
-# Blazegraph working directory is under the REPRO mount point
-DOT_BLAZEGRAPH_SERVICE=${REPRO_MNT}/.blazegraph-service
-
-# create working directory if needed
-if [[ ! -d ${DOT_BLAZEGRAPH_SERVICE} ]]
-then
-    mkdir -p ${DOT_BLAZEGRAPH_SERVICE}
-    echo "*" > ${DOT_BLAZEGRAPH_SERVICE}/.gitignore
-fi
-
-cd ${DOT_BLAZEGRAPH_SERVICE}
+state_dir=$(repro.state_dir_for_module blazegraph-service)
+cd ${state_dir}
 
 # get the path to the Blazegraph jar file
-jar=${PACKAGE}/blazegraph.jar
+install_dir=$(repro.install_dir_for_module blazegraph-service)
+jar=${install_dir}/blazegraph.jar
 
-
-options="-server -Xmx4g -Dbigdata.propertyFile=${PACKAGE}/blazegraph.properties"
+options="-server -Xmx4g -Dbigdata.propertyFile=blazegraph.properties"
 log=blazegraph_`date +%s`.log
 
 java ${options} -jar ${jar} 2>&1 > ${log} &
