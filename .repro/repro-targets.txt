@@ -1,0 +1,3 @@
+clean-database: blazegraph-service.clean
+drop-database: blazegraph-service.drop
+purge-database: blazegraph-service.purge

@@ -1,0 +1,3 @@
+clean-database: clean
+drop-database: drop	
+purge-database: purge
