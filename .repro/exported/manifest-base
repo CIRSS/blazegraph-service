@@ -1,5 +1,5 @@
+Makefile-base
+setup-base
+targets-base
 blazegraph-service.start
 blazegraph.jar https://github.com/blazegraph/database/releases/download/BLAZEGRAPH_RELEASE_2_1_5/blazegraph.jar
-setup-base.sh
-targets-base.txt
-Makefile
