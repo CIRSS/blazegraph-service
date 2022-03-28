@@ -1,0 +1,3 @@
+#!/bin/bash
+
+blaze status --timeout 5000 --quiet 
