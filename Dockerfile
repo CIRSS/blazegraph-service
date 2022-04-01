@@ -1,6 +1,9 @@
-FROM docker.io/cirss/repro-template
+FROM cirss/repro-parent:latest
 
 COPY exports /repro/exports
+
+ADD ${REPRO_DIST}/setup-boot /repro/dist/
+RUN bash /repro/dist/setup-boot
 
 USER repro
 
