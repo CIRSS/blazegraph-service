@@ -4,7 +4,7 @@ state_dir=$(repro.module_dot_dir blazegraph-service)
 cd ${state_dir}
 
 # get the path to the Blazegraph jar file
-install_dir=$(repro.install_dir_for_module blazegraph-service)
+install_dir=$(repro.module_install_dir blazegraph-service)
 jar=${install_dir}/blazegraph.jar
 
 options="-server -Xmx4g -Dbigdata.propertyFile=blazegraph.properties"
