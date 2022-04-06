@@ -1,2 +1,2 @@
-sudo apt update
-sudo apt -y install openjdk-8-jre-headless
+# install the Java 8 runtime
+repro.require java-runtime master ${REPROS_DEV}
