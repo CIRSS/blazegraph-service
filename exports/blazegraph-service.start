@@ -10,5 +10,8 @@ jar=${install_dir}/blazegraph.jar
 options="-server -Xmx4g -Dbigdata.propertyFile=blazegraph.properties"
 log=blazegraph_`date +%s`.log
 
+# start Blazegraph as a background process
 java ${options} -jar ${jar} 2>&1 > ${log} &
 
+# save the process ID of the new background process
+echo $! > ${state_dir}/service-pid

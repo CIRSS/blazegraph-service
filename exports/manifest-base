@@ -2,5 +2,6 @@ Makefile-base
 setup-base
 targets-base
 blazegraph-service.start
+blazegraph-service.stop
 blazegraph-service.wait
 blazegraph.jar https://github.com/blazegraph/database/releases/download/BLAZEGRAPH_RELEASE_2_1_5/blazegraph.jar
