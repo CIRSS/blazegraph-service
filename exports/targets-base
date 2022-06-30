@@ -1,4 +1,4 @@
-clean-database: clean
-drop-database: drop	
-purge-database: purge
-start-service: start
+clean-databases: clean
+drop-databases: drop
+purge-databases: purge
+start-services: start

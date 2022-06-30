@@ -3,16 +3,20 @@ root = true
 [*]
 end_of_line = lf
 insert_final_newline = true
-trim_trailing_whitespace = false
+trim_trailing_whitespace = true
 charset = utf-8
 
 [Makefile*]
 tab_width = 4
 indent_size = 4
 indent_style = tab
+trim_trailing_whitespace = false
 
-[*.g]
-trim_trailing_whitespace = true
+[*-config]
+tab_width = 4
+indent_size = 4
+indent_style = tab
+trim_trailing_whitespace = false
 
-[*.sh]
+[Dockerfile-*]
 trim_trailing_whitespace = true
