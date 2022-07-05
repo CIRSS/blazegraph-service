@@ -11,4 +11,4 @@ drop:                   ## Delete the Blazegraph storage file.
 purge: clean drop
 
 start: 
-	blazegraph-service.wait-for-key
+	blazegraph-service.start
