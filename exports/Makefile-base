@@ -12,4 +12,3 @@ purge: clean drop
 
 start: 
 	blazegraph-service.start
-	@echo "Connect to Blazegraph service at http://localhost:9999"
