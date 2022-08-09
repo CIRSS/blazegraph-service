@@ -1,13 +1,13 @@
 #!/bin/bash
 
-state_dir=$(repro.module_dot_dir blazegraph-service)
+state_dir=$(repro.trim_dir_name_for_module blazegraph-service)
 pid_file=${state_dir}/service-pid
 
 # fail if no process ID file
-if [[ ! -f ${pid_file} ]] ; then 
+if [[ ! -f ${pid_file} ]] ; then
     echo "No background process ID file at ${pid_file}"
 fi
 
 # stop the blazegraph java process and clean up
-kill $( < ${pid_file} ) 
+kill $( < ${pid_file} )
 rm ${pid_file}
