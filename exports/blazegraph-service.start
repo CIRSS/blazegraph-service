@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ${REPRO_BASE_FUNCTIONS}
+
 state_dir=$(repro.trim_dir_name_for_module blazegraph-service)
 cd ${state_dir}
 

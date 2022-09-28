@@ -1,6 +1,6 @@
-Makefile-base
-setup-base
-targets-base
+base-makefile
+base-setup
+base-targets
 blazegraph-service.start
 blazegraph-service.stop
 blazegraph-service.wait
